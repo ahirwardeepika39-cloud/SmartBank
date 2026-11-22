@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}SmartBank - Home{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-content">
+        <h1>Banking Made Simple & Smarter.</h1>
+
+        <p>
+            Welcome to SmartBank. Experience a simple,
+            convenient and modern digital banking experience
+            with all your banking services in one place.
+        </p>
+
+        <a href="{{ url_for('register') }}" class="btn">
+            Get Started →
+        </a>
+    </div>
+
+    <div class="hero-art">🏦</div>
+
+</section>
+
+<section>
+
+    <div class="section-heading">
+        <h2>Banking Services</h2>
+        <p>Everything you need for your banking experience.</p>
+    </div>
+
+    <div class="cards-grid">
+
+        <div class="service-card">
+            <div class="service-icon">💰</div>
+            <h3>Easy Deposits</h3>
+            <p>Add demo money to your SmartBank account easily.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">💸</div>
+            <h3>Quick Withdrawals</h3>
+            <p>Withdraw demo money whenever you need.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">🔄</div>
+            <h3>Money Transfer</h3>
+            <p>Transfer demo funds between SmartBank accounts.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">📊</div>
+            <h3>Transaction History</h3>
+            <p>Keep track of your account transactions.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">🔐</div>
+            <h3>Account Management</h3>
+            <p>Manage your demo account with ease.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">⚡</div>
+            <h3>Simple Experience</h3>
+            <p>Enjoy a clean and user-friendly banking interface.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section-heading">
+    <h2>Ready to Get Started?</h2>
+    <p>Create your SmartBank demo account today.</p>
+    <br>
+    <a href="{{ url_for('register') }}" class="btn btn-primary">
+        Create Account →
+    </a>
+</section>
+
+{% endblock %}

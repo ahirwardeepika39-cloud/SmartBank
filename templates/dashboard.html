@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - SmartBank{% endblock %}
+
+{% block content %}
+
+<div class="welcome-row">
+    <div>
+        <h1>Welcome, {{ user.name }}! 👋</h1>
+        <p>Here is your SmartBank account overview.</p>
+    </div>
+
+    <a href="{{ url_for('logout') }}" class="btn btn-outline">
+        Logout →
+    </a>
+
+<a href="{{ url_for('download_statement') }}"
+   class="btn btn-primary">
+    Download PDF Statement
+</a>
+
+</div>
+
+<!-- BALANCE CARD -->
+
+<div class="balance-card">
+
+    <p>SMARTBANK ACCOUNT 🏦</p>
+
+    <p>Available Balance</p>
+
+    <h2>₹ {{ "%.2f"|format(user.balance) }}</h2>
+
+    <div class="account-details">
+
+        <div>
+            <span>Account Holder</span>
+            <strong>{{ user.name }}</strong>
+        </div>
+
+        <div>
+            <span>Account Number</span>
+            <strong>{{ user.account_number }}</strong>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- BANKING SERVICES -->
+
+<div class="page-heading">
+    <h1>Banking Services</h1>
+    <p>Manage your banking activities easily.</p>
+</div>
+
+<div class="services-grid">
+
+    <a href="{{ url_for('deposit') }}" class="service-card">
+        <div class="service-icon">💰</div>
+        <h3>Deposit</h3>
+        <p>Add money to your account.</p>
+    </a>
+
+    <a href="{{ url_for('withdraw') }}" class="service-card">
+        <div class="service-icon">💸</div>
+        <h3>Withdraw</h3>
+        <p>Withdraw your money.</p>
+    </a>
+
+    <a href="{{ url_for('transfer') }}" class="service-card">
+        <div class="service-icon">🔄</div>
+        <h3>Transfer</h3>
+        <p>Send money to another account.</p>
+    </a>
+
+    <a href="{{ url_for('history') }}" class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>History</h3>
+        <p>View all transactions.</p>
+    </a>
+
+</div>
+
+<!-- ACCOUNT INFORMATION -->
+
+<div class="info-card">
+
+    <h3>Account Information</h3>
+
+    <div class="info-row">
+        <span>Name</span>
+        <strong>{{ user.name }}</strong>
+    </div>
+
+    <div class="info-row">
+        <span>Email</span>
+        <strong>{{ user.email }}</strong>
+    </div>
+
+    <div class="info-row">
+        <span>Account Number</span>
+        <strong>{{ user.account_number }}</strong>
+    </div>
+
+    <div class="info-row">
+        <span>Status</span>
+        <strong class="status-active">{{ user.status }}</strong>
+    </div>
+
+</div>
+
+{% endblock %}

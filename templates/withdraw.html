@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Withdraw - SmartBank{% endblock %}
+
+{% block content %}
+
+<div class="form-wrapper">
+    <div class="form-card">
+
+        <div class="service-icon" style="margin:auto auto 18px;">
+            💸
+        </div>
+
+        <h1>Withdraw Money</h1>
+        <p class="form-subtitle">
+            Withdraw money from your account.
+        </p>
+
+        <div class="info-card" style="margin-bottom:25px;">
+            <div class="info-row">
+                <span>Account Holder</span>
+                <strong>{{ user.name }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Account Number</span>
+                <strong>{{ user.account_number }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Available Balance</span>
+                <strong>₹ {{ "%.2f"|format(user.balance) }}</strong>
+            </div>
+        </div>
+
+        <form method="POST" action="{{ url_for('withdraw') }}">
+
+            <div class="form-group">
+                <label>Enter Withdrawal Amount (₹)</label>
+                <input type="number"
+                       name="amount"
+                       min="0.01"
+                       step="0.01"
+                       placeholder="Enter amount"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Description (Optional)</label>
+                <input type="text"
+                       name="description"
+                       placeholder="Enter description">
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Withdraw Money →
+            </button>
+
+        </form>
+
+        <p class="form-footer">
+            <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}

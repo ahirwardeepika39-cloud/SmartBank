@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - SmartBank{% endblock %}
+
+{% block content %}
+
+<div class="welcome-row">
+
+    <div>
+        <h1>Admin Dashboard 👑</h1>
+        <p>Welcome to SmartBank Administration Panel.</p>
+    </div>
+
+    <a href="{{ url_for('logout') }}" class="btn btn-outline">
+        Logout →
+    </a>
+
+</div>
+
+<!-- STATISTICS -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <div class="service-icon">👥</div>
+        <p>Total Customers</p>
+        <h2>{{ total_customers }}</h2>
+    </div>
+
+    <div class="stat-card">
+        <div class="service-icon">🏦</div>
+        <p>Total Accounts</p>
+        <h2>{{ total_accounts }}</h2>
+    </div>
+
+    <div class="stat-card">
+        <div class="service-icon">💳</div>
+        <p>Total Transactions</p>
+        <h2>{{ total_transactions }}</h2>
+    </div>
+
+    <div class="stat-card">
+        <div class="service-icon">💰</div>
+        <p>Total Bank Balance</p>
+        <h2>₹ {{ "%.2f"|format(total_balance) }}</h2>
+    </div>
+
+</div>
+
+<!-- CUSTOMERS -->
+
+<div class="info-card" style="margin-bottom:30px;">
+
+    <h3>All Customers 👥</h3>
+
+    <div class="table-wrapper">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Account Number</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for customer in customers %}
+
+                <tr>
+                    <td>{{ customer.id }}</td>
+                    <td><strong>{{ customer.name }}</strong></td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.account_number }}</td>
+
+                    <td>
+                        ₹ {{ "%.2f"|format(customer.balance) }}
+                    </td>
+
+                    <td>
+                        {% if customer.status == 'active' %}
+                            <span class="status-active">Active</span>
+                        {% else %}
+                            <span class="status-blocked">Blocked</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <form method="POST"
+                              action="{{ url_for('toggle_account', user_id=customer.id) }}">
+
+                            {% if customer.status == 'active' %}
+                                <button type="submit" class="btn btn-outline">
+                                    Block
+                                </button>
+                            {% else %}
+                                <button type="submit" class="btn btn-primary">
+                                    Unblock
+                                </button>
+                            {% endif %}
+
+                        </form>
+                    </td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="7">No customers found.</td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<!-- RECENT TRANSACTIONS -->
+
+<div class="info-card">
+
+    <h3>Recent Transactions 📊</h3>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Customer ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for transaction in recent_transactions %}
+
+                <tr>
+                    <td>{{ transaction.transaction_id }}</td>
+                    <td>{{ transaction.user_id }}</td>
+                    <td>{{ transaction.type }}</td>
+
+                    <td>
+                        ₹ {{ "%.2f"|format(transaction.amount) }}
+                    </td>
+
+                    <td>{{ transaction.date }}</td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="5">No recent transactions.</td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
